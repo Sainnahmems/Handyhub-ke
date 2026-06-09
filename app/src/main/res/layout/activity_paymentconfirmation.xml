@@ -1,0 +1,48 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="24dp"
+    android:background="@color/background">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@android:drawable/checkbox_on_background"
+        app:tint="@color/secondary"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Booking Confirmed!"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/primary"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/tvBookingId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ID Reference: HH-2026-8941"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/text_secondary"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Estimated provider dispatch response time is roughly 30 minutes."
+        android:gravity="center"
+        android:layout_marginTop="12dp"
+        android:textSize="15sp"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDone"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="32dp"
+        android:text="Back to Main Hub Screen"
+        android:backgroundTint="@color/primary"/>
+</LinearLayout>

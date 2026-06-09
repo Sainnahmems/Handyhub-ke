@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Schedule Setup"
+            android:text="@string/schedule_setup"
             android:textSize="22sp"
             android:textStyle="bold"
             android:textColor="@color/primary"/>
@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
-            android:text="Select Date" />
+            android:text="@string/select_date" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnTimePicker"
@@ -34,13 +34,13 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="12dp"
-            android:text="Select Time" />
+            android:text="@string/select_time" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="Job Details / Requirements"
+            android:hint="@string/job_details_hint"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etJobDesc"
@@ -54,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:hint="Physical Address"
+            android:hint="@string/physical_address_hint"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etLocation"
@@ -72,7 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="24dp"
-            android:text="Proceed to Payment"
+            android:text="@string/proceed_to_payment"
             android:backgroundTint="@color/secondary"/>
     </LinearLayout>
 </ScrollView>

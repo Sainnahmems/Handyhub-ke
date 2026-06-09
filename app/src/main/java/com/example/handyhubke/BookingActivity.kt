@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.handyhubke.data.model.Worker
 import com.example.handyhubke.databinding.ActivityBookingBinding
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
@@ -20,7 +19,7 @@ class BookingActivity : AppCompatActivity() {
         binding = ActivityBookingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val worker = intent.getSerializableExtra("DATA_WORKER") as? Worker
+        // val worker = intent.getSerializableExtra("DATA_WORKER") as? Worker
 
         binding.btnDatePicker.setOnClickListener {
             val picker = MaterialDatePicker.Builder.datePicker().build()
@@ -45,8 +44,9 @@ class BookingActivity : AppCompatActivity() {
                 Toast.makeText(this, "Please complete all fields", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            // Navigate to PaymentActivity (or show success)
-            Toast.makeText(this, "Booking Successful", Toast.LENGTH_SHORT).show()
+            // Navigate to Paymentscreen
+            val intent = Intent(this, Paymentscreen::class.java)
+            startActivity(intent)
             finish()
         }
     }

@@ -4,91 +4,81 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import android.view.View
-import android.widget.ProgressBar
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
+import androidx.core.content.edit
+import com.example.handyhubke.databinding.ActivityLoginactivityBinding
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var emailLayout: TextInputLayout
-    private lateinit var passwordLayout: TextInputLayout
-    private lateinit var etEmail: TextInputEditText
-    private lateinit var etPassword: TextInputEditText
-    private lateinit var btnLogin: MaterialButton
-    private lateinit var progressBar: ProgressBar
-    private lateinit var txtRegister: TextView
+    private lateinit var binding: ActivityLoginactivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        binding = ActivityLoginactivityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        emailLayout = findViewById(R.id.emailLayout)
-        passwordLayout = findViewById(R.id.passwordLayout)
-        etEmail = findViewById(R.id.etEmail)
-        etPassword = findViewById(R.id.etPassword)
-        btnLogin = findViewById(R.id.btnLogin)
-        progressBar = findViewById(R.id.progressBar)
-        txtRegister = findViewById(R.id.txtRegister)
+        // Check if user is already logged in
+        val sharedPref = getSharedPreferences("HandyHubPrefs", MODE_PRIVATE)
+        if (sharedPref.getBoolean("isLoggedIn", false)) {
+            startActivity(Intent(this, CustomerMainActivity::class.java))
+            finish()
+        }
 
-        btnLogin.setOnClickListener {
+        binding.btnLogin.setOnClickListener {
             validateAndLogin()
         }
 
-        txtRegister.setOnClickListener {
+        binding.txtRegister.setOnClickListener {
             startActivity(Intent(this, SignUpActivity::class.java))
         }
     }
 
     private fun validateAndLogin() {
+        val email = binding.etEmail.text.toString().trim()
+        val password = binding.etPassword.text.toString().trim()
 
-        val email = etEmail.text.toString().trim()
-        val password = etPassword.text.toString().trim()
-
-        emailLayout.error = null
-        passwordLayout.error = null
+        binding.emailLayout.error = null
+        binding.passwordLayout.error = null
 
         if (email.isEmpty()) {
-            emailLayout.error = "Email is required"
+            binding.emailLayout.error = "Email is required"
             return
         }
 
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailLayout.error = "Invalid email address"
+            binding.emailLayout.error = "Invalid email address"
             return
         }
 
         if (password.isEmpty()) {
-            passwordLayout.error = "Password is required"
+            binding.passwordLayout.error = "Password is required"
             return
         }
 
         if (password.length < 6) {
-            passwordLayout.error = "Minimum 6 characters"
+            binding.passwordLayout.error = "Minimum 6 characters"
             return
         }
 
-        progressBar.visibility = View.VISIBLE
-        btnLogin.isEnabled = false
+        binding.progressBar.visibility = View.VISIBLE
+        binding.btnLogin.isEnabled = false
 
-        btnLogin.postDelayed({
+        // Simulate network call
+        binding.btnLogin.postDelayed({
+            binding.progressBar.visibility = View.GONE
+            binding.btnLogin.isEnabled = true
 
-            progressBar.visibility = View.GONE
-            btnLogin.isEnabled = true
+            // Save login status and a mock username
+            val sharedPrefs = getSharedPreferences("HandyHubPrefs", MODE_PRIVATE)
+            sharedPrefs.edit {
+                putBoolean("isLoggedIn", true)
+                putString("username", email.substringBefore("@"))
+            }
 
-            Toast.makeText(
-                this,
-                "Login Successful",
-                Toast.LENGTH_SHORT
-            ).show()
-
-            // Navigate to HomeActivity
+            Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, CustomerMainActivity::class.java))
             finish()
-
-        }, 2000)
+        }, 1500)
     }
 }

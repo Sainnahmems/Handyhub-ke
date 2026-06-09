@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Handyhub ke</string>
+    <string name="settings_title">Global Preferences</string>
+    <string name="notifications_label">Push Notifications Alerts Pipeline</string>
+    <string name="location_label">Real-time Location Synchronization Trackings</string>
+    <string name="logout_button">Terminate Current Session (Logout)</string>
+    <string name="rate_service">Rate the Completed Service</string>
+    <string name="review_hint">Write execution performance reviews&#8230;</string>
+    <string name="submit_report">Submit Performance Report</string>
+    <string name="review_submitted">Review Submitted Successfully with evaluation status: %1$.1f Stars</string>
+    <string name="welcome_user">Welcome, %1$s!</string>
+    <string name="schedule_setup">Schedule Setup</string>
+    <string name="select_date">Select Date</string>
+    <string name="select_time">Select Time</string>
+    <string name="job_details_hint">Job Details / Requirements</string>
+    <string name="physical_address_hint">Physical Address</string>
+    <string name="proceed_to_payment">Proceed to Payment</string>
 </resources>

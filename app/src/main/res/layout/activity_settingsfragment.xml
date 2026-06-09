@@ -1,0 +1,44 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/2000/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@color/background">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Global Preferences"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/primary"/>
+
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/switchNotifications"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Push Notifications Alerts Pipeline"
+        android:checked="true"/>
+
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/switchLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Real-time Location Synchronization Trackings"
+        android:checked="true"/>
+
+    <Spacer
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnLogout"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:text="Terminate Current Session (Logout)"
+        android:textColor="@android:color/holo_red_dark"/>
+</LinearLayout>
