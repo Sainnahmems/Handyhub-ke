@@ -6,7 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.handyhubke.databinding.ActivityWorkersprofilesetupBinding
 
-class workersprofilesetup : AppCompatActivity() {
+class WorkerProfileSetupActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWorkersprofilesetupBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,8 +23,8 @@ class workersprofilesetup : AppCompatActivity() {
                 Toast.makeText(this, "Missing functional parameter fields", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            // Navigate to serviceproviders activity
-            startActivity(Intent(this, serviceproviders::class.java))
+            // Navigate to ServiceProvidersActivity
+            startActivity(Intent(this, ServiceProvidersActivity::class.java))
             finish()
         }
     }

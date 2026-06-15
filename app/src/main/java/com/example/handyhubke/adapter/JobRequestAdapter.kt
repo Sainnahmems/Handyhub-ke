@@ -10,7 +10,10 @@ import com.example.handyhubke.data.model.JobRequest
 
 class JobRequestAdapter(
     private var jobRequests: List<JobRequest>,
-    private val onJobClick: (JobRequest) -> Unit
+    private val isProvider: Boolean = false,
+    private val onAcceptClick: ((JobRequest) -> Unit)? = null,
+    private val onDeclineClick: ((JobRequest) -> Unit)? = null,
+    private val onJobClick: ((JobRequest) -> Unit)? = null
 ) : RecyclerView.Adapter<JobRequestAdapter.JobViewHolder>() {
 
     class JobViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -18,6 +21,9 @@ class JobRequestAdapter(
         val tvDescription: TextView = view.findViewById(R.id.tvDescription)
         val tvBudget: TextView = view.findViewById(R.id.tvBudget)
         val tvStatus: TextView = view.findViewById(R.id.tvStatus)
+        val llActions: View = view.findViewById(R.id.llActions)
+        val btnAccept: View = view.findViewById(R.id.btnAccept)
+        val btnDecline: View = view.findViewById(R.id.btnDecline)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JobViewHolder {
@@ -33,7 +39,15 @@ class JobRequestAdapter(
         holder.tvBudget.text = "Budget: $${job.budget}"
         holder.tvStatus.text = job.status
 
-        holder.itemView.setOnClickListener { onJobClick(job) }
+        if (isProvider && job.status == "Pending") {
+            holder.llActions.visibility = View.VISIBLE
+            holder.btnAccept.setOnClickListener { onAcceptClick?.invoke(job) }
+            holder.btnDecline.setOnClickListener { onDeclineClick?.invoke(job) }
+        } else {
+            holder.llActions.visibility = View.GONE
+        }
+
+        holder.itemView.setOnClickListener { onJobClick?.invoke(job) }
     }
 
     override fun getItemCount() = jobRequests.size

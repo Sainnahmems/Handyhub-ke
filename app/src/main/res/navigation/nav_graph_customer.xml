@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/nav_worker_list"
         android:name="com.example.handyhubke.WorkerListFragment"
-        android:label="Workers"
+        android:label="Profiles"
         tools:layout="@layout/fragment_worker_list">
         <argument
             android:name="category"
@@ -26,4 +26,15 @@
             android:defaultValue="All" />
     </fragment>
 
+    <fragment
+        android:id="@+id/nav_saved_requests"
+        android:name="com.example.handyhubke.SavedRequestsFragment"
+        android:label="Saved Requests"
+        tools:layout="@layout/fragment_saved_requests" />
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.example.handyhubke.CustomerProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_customer_profile" />
 </navigation>

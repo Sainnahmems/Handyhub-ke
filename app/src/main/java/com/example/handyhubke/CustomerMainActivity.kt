@@ -4,14 +4,14 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.example.handyhubke.databinding.ActivityNavigationgragmentBinding
+import com.example.handyhubke.databinding.ActivityNavigationFragmentBinding
 
 class CustomerMainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityNavigationgragmentBinding
+    private lateinit var binding: ActivityNavigationFragmentBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityNavigationgragmentBinding.inflate(layoutInflater)
+        binding = ActivityNavigationFragmentBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val navHostFragment = supportFragmentManager

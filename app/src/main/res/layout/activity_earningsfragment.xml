@@ -1,44 +1,54 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/2000/res/android"
-    xmlns:app="http://schemas.google.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:padding="16dp"
     android:background="@color/background">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardChart"
         android:layout_width="match_parent"
         android:layout_height="180dp"
         app:cardCornerRadius="12dp"
-        android:backgroundTint="@color/primary">
+        android:backgroundTint="@color/primary"
+        app:layout_constraintTop_toTopOf="parent">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="[ Earnings Weekly Metric Chart Graphic Visualization ]"
             android:textColor="@color/on_primary"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:gravity="center"
+            android:padding="16dp"/>
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnWithdraw"
         android:layout_width="match_parent"
-        android:layout_height="54dp"
+        android:layout_height="56dp"
         android:layout_marginTop="16dp"
         android:text="Instant Payout Settlement Extraction"
-        android:backgroundTint="@color/secondary"/>
+        android:backgroundTint="@color/secondary"
+        app:layout_constraintTop_toBottomOf="@id/cardChart"/>
 
     <TextView
+        android:id="@+id/tvHistoryTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Payout Statement History Logs"
         android:textStyle="bold"
         android:layout_marginTop="24dp"
-        android:textSize="16sp"/>
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/btnWithdraw"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPayoutHistory"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="8dp"/>
-</LinearLayout>
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/tvHistoryTitle"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

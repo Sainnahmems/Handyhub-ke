@@ -19,7 +19,7 @@ class WorkerProfileActivity : AppCompatActivity() {
         worker?.let {
             binding.profileName.text = it.name
             binding.profileBio.text = it.description
-            binding.profileRate.text = "$${it.hourlyRate} / hour"
+            binding.profileRate.text = getString(R.string.hourly_rate_format, it.hourlyRate)
         }
 
         binding.btnBookNow.setOnClickListener {

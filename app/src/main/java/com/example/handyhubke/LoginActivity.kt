@@ -6,24 +6,27 @@ import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.edit
+import androidx.lifecycle.lifecycleScope
+import com.example.handyhubke.data.local.PreferencesManager
+import com.example.handyhubke.data.repository.FirebaseRepository
 import com.example.handyhubke.databinding.ActivityLoginactivityBinding
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginactivityBinding
+    private lateinit var auth: FirebaseAuth
+    private lateinit var preferencesManager: PreferencesManager
+    private val firebaseRepository = FirebaseRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginactivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Check if user is already logged in
-        val sharedPref = getSharedPreferences("HandyHubPrefs", MODE_PRIVATE)
-        if (sharedPref.getBoolean("isLoggedIn", false)) {
-            startActivity(Intent(this, CustomerMainActivity::class.java))
-            finish()
-        }
+        auth = FirebaseAuth.getInstance()
+        preferencesManager = PreferencesManager(this)
 
         binding.btnLogin.setOnClickListener {
             validateAndLogin()
@@ -64,21 +67,44 @@ class LoginActivity : AppCompatActivity() {
         binding.progressBar.visibility = View.VISIBLE
         binding.btnLogin.isEnabled = false
 
-        // Simulate network call
-        binding.btnLogin.postDelayed({
-            binding.progressBar.visibility = View.GONE
-            binding.btnLogin.isEnabled = true
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                binding.progressBar.visibility = View.GONE
+                binding.btnLogin.isEnabled = true
 
-            // Save login status and a mock username
-            val sharedPrefs = getSharedPreferences("HandyHubPrefs", MODE_PRIVATE)
-            sharedPrefs.edit {
-                putBoolean("isLoggedIn", true)
-                putString("username", email.substringBefore("@"))
+                if (task.isSuccessful) {
+                    val user = auth.currentUser
+                    val isCustomer = binding.toggleRoleGroup.checkedButtonId == R.id.btnRoleCustomer
+                    val role = if (isCustomer) PreferencesManager.ROLE_HOMEOWNER else PreferencesManager.ROLE_PROFESSIONAL
+
+                    lifecycleScope.launch {
+                        user?.let {
+                            val result = firebaseRepository.getUserProfile(it.uid)
+                            val userProfile = result.getOrNull()
+                            
+                            // Update local info from Firestore if it exists
+                            val displayName = userProfile?.fullName ?: email.substringBefore("@")
+                            preferencesManager.saveAuthToken(displayName) 
+                        }
+                        
+                        preferencesManager.saveUserRole(role)
+
+                        Toast.makeText(this@LoginActivity, "Login Successful as $role", Toast.LENGTH_SHORT).show()
+                        
+                        if (isCustomer) {
+                            startActivity(Intent(this@LoginActivity, CustomerMainActivity::class.java))
+                        } else {
+                            startActivity(Intent(this@LoginActivity, WorkerMainActivity::class.java))
+                        }
+                        finish()
+                    }
+                } else {
+                    Toast.makeText(
+                        this,
+                        "Authentication Failed: ${task.exception?.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
             }
-
-            Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this, CustomerMainActivity::class.java))
-            finish()
-        }, 1500)
     }
 }

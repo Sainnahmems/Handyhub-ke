@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.handyhubke.data.model.NotificationItem
 import com.example.handyhubke.databinding.ActivityNotificationsactivityBinding
 
-class Notificationsactivity : Fragment() {
+class NotificationsFragment : Fragment() {
     private var _binding: ActivityNotificationsactivityBinding? = null
     private val binding get() = _binding!!
 

@@ -15,4 +15,54 @@
     <string name="job_details_hint">Job Details / Requirements</string>
     <string name="physical_address_hint">Physical Address</string>
     <string name="proceed_to_payment">Proceed to Payment</string>
+    <string name="chat_hint">Type message&#8230;</string>
+    <string name="hourly_rate_format">$%1$.2f / hour</string>
+    <string name="category_specialists_format">%1$s Specialists</string>
+    <string name="professional_registration">Professional Registration</string>
+    <string name="primary_skills_hint">Primary Core Skills (e.g. Copper Piping, Wire Routing)</string>
+    <string name="hourly_rate_hint">Hourly Pricing Fee Rate ($)</string>
+    <string name="bio_details_hint">Professional Biography Bio Details</string>
+    <string name="upload_photo">Upload Verification Profile Photo</string>
+    <string name="complete_setup">Complete Setup Activation</string>
+    <string name="logout_success">Successfully logged out</string>
+
+    <!-- Payment Screen -->
+    <string name="checkout_summary">Checkout Summary</string>
+    <string name="service_charge_label">Service Base Charge: $50.00</string>
+    <string name="platform_fee_label">Platform Fee: $5.00</string>
+    <string name="total_charge_label">Total: $55.00</string>
+    <string name="mpesa_label_full">M-Pesa Mobile Money</string>
+    <string name="card_label">Credit/Debit Card</string>
+    <string name="cash_label">Cash After Service</string>
+    <string name="authorize_transaction">Authorize Transaction</string>
+
+    <!-- Job Request -->
+    <string name="decline">Decline</string>
+    <string name="accept">Accept</string>
+
+    <!-- Login Screen -->
+    <string name="welcome_back">Welcome Back</string>
+    <string name="email_address">Email Address</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="google_sign_in">Continue with Google</string>
+    <string name="sign_up_prompt">Don\'t have an account? Sign Up</string>
+    <string name="app_logo_desc">HandyHub Logo</string>
+
+    <!-- Payment Confirmation -->
+    <string name="booking_confirmed">Booking Confirmed!</string>
+    <string name="id_reference_default">ID Reference: HH-2026-8941</string>
+    <string name="dispatch_time_desc">Estimated provider dispatch response time is roughly 30 minutes.</string>
+    <string name="back_to_hub">Back to Main Hub Screen</string>
+    <string name="confirmation_icon_desc">Confirmation Icon</string>
+
+    <!-- Sign Up Screen -->
+    <string name="create_account">Create Account</string>
+    <string name="customer_label">Customer</string>
+    <string name="provider_label">Service Provider</string>
+    <string name="full_name">Full Name</string>
+    <string name="sign_up">Sign Up</string>
+
+    <!-- Splash Screen -->
+    <string name="splash_tagline">Your Everyday Helper</string>
 </resources>

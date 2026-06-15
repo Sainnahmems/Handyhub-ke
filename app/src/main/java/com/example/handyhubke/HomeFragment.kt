@@ -8,43 +8,60 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.handyhubke.data.api.RetrofitClient
 import com.example.handyhubke.data.model.Worker
 import com.example.handyhubke.databinding.FragmentHomeBinding
 import com.example.handyhubke.adapter.WorkerAdapter
+import com.example.handyhubke.data.local.PreferencesManager
+import com.example.handyhubke.data.repository.FirebaseRepository
+import kotlinx.coroutines.launch
+import kotlin.random.Random
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var preferencesManager: PreferencesManager
+    private val firebaseRepository = FirebaseRepository()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        preferencesManager = PreferencesManager(requireContext())
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Retrieve username from SharedPreferences
-        val sharedPref = requireActivity().getSharedPreferences("HandyHubPrefs", Context.MODE_PRIVATE)
-        val username = sharedPref.getString("username", "User")
+        // Retrieve username and role from PreferencesManager
+        val username = preferencesManager.getAuthToken() ?: "User" // Simplified for demo
+        val role = preferencesManager.getUserRole()
+        
         binding.tvWelcomeMessage.text = getString(R.string.welcome_user, username)
+        
+        // Example of conditional UI based on role stored locally
+        if (role == PreferencesManager.ROLE_PROFESSIONAL) {
+            // Show professional dashboard features if needed
+        }
 
         // Quick Navigation Buttons
         binding.cardBookService.setOnClickListener {
-            // Placeholder: Navigate to a default category or search
             navigateToCategory("All")
         }
 
         binding.cardSavedRequests.setOnClickListener {
-            // Placeholder: Navigate to Local CRUD Screen (Saved Requests)
-            // findNavController().navigate(R.id.nav_saved_requests) 
-            Toast.makeText(context, "Navigating to Saved Requests...", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.nav_saved_requests)
         }
 
         binding.cardBrowsePros.setOnClickListener {
             navigateToCategory("All")
+        }
+
+        binding.cardPublicRecords.setOnClickListener {
+            startActivity(Intent(requireContext(), UserListActivity::class.java))
         }
 
         // Category Clicks
@@ -57,18 +74,42 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        val dummyWorkers = listOf(
-            Worker("1", "John Doe", "Plumbing", 4.8, 25.0, 1.2, "Expert Plumber", ""),
-            Worker("2", "Jane Smith", "Cleaning", 4.9, 15.0, 2.5, "Eco Cleaner", ""),
-            Worker("3", "Mike Ross", "Electrician", 4.7, 30.0, 0.8, "Licensed electrician", ""),
-        )
-
         binding.rvFeaturedWorkers.layoutManager = LinearLayoutManager(context)
-        binding.rvFeaturedWorkers.adapter = WorkerAdapter(dummyWorkers) { worker ->
-            val intent = Intent(context, WorkerProfileActivity::class.java).apply {
-                putExtra("DATA_WORKER", worker)
+        
+        // Fetch featured workers from Firebase Firestore (Remote Layer)
+        binding.homeProgressBar.visibility = View.VISIBLE
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                // Example: Fetch "Plumbing" specialists
+                val result = firebaseRepository.getServiceProviders("Plumbing")
+                if (result.isSuccess) {
+                    val providers = result.getOrNull() ?: emptyList()
+                    val workers = providers.take(5).map { profile ->
+                        Worker(
+                            id = profile.uid,
+                            name = profile.fullName,
+                            category = profile.role,
+                            rating = profile.rating,
+                            hourlyRate = profile.hourlyRate,
+                            distance = Random.nextDouble(0.5, 10.0),
+                            description = "Certified professional",
+                            imageUrl = profile.profileImageUrl.ifEmpty { "https://i.pravatar.cc/150?u=${profile.uid}" },
+                        )
+                    }
+                    binding.rvFeaturedWorkers.adapter = WorkerAdapter(workers) { worker ->
+                        val intent = Intent(context, WorkerProfileActivity::class.java).apply {
+                            putExtra("DATA_WORKER", worker)
+                        }
+                        startActivity(intent)
+                    }
+                } else {
+                    Toast.makeText(context, "Failed to load specialists from Cloud", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                Toast.makeText(context, "Cloud Error: ${e.message}", Toast.LENGTH_SHORT).show()
+            } finally {
+                binding.homeProgressBar.visibility = View.GONE
             }
-            startActivity(intent)
         }
     }
 
@@ -77,7 +118,6 @@ class HomeFragment : Fragment() {
         try {
             findNavController().navigate(R.id.action_home_to_workerList, bundle)
         } catch (e: Exception) {
-            // Handle navigation error
             e.printStackTrace()
         }
     }

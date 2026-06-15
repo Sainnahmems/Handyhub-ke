@@ -31,9 +31,10 @@ class JobRequestsListActivity : AppCompatActivity() {
 
     private fun setupRecyclerView() {
         val jobs = dbHelper.getAllJobRequests()
-        adapter = JobRequestAdapter(jobs) { job ->
-            showJobOptions(job)
-        }
+        adapter = JobRequestAdapter(
+            jobRequests = jobs,
+            onJobClick = { job -> showJobOptions(job) }
+        )
         binding.rvJobRequests.layoutManager = LinearLayoutManager(this)
         binding.rvJobRequests.adapter = adapter
     }

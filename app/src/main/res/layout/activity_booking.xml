@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -6,73 +5,83 @@
     android:fillViewport="true"
     android:background="@color/background">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:padding="20dp">
 
         <TextView
+            android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="@string/schedule_setup"
             android:textSize="22sp"
             android:textStyle="bold"
-            android:textColor="@color/primary"/>
+            android:textColor="@color/primary"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnDatePicker"
             style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/select_date" />
+            android:layout_height="56dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/select_date"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnTimePicker"
             style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="56dp"
             android:layout_marginTop="12dp"
-            android:text="@string/select_time" />
+            android:text="@string/select_time"
+            app:layout_constraintTop_toBottomOf="@id/btnDatePicker"/>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutJobDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="@string/job_details_hint"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            app:layout_constraintTop_toBottomOf="@id/btnTimePicker">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etJobDesc"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
+                android:minLines="3"
                 android:gravity="top"
                 android:inputType="textMultiLine"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:hint="@string/physical_address_hint"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            app:layout_constraintTop_toBottomOf="@id/layoutJobDesc">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnProceedPayment"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="16dp"
             android:text="@string/proceed_to_payment"
-            android:backgroundTint="@color/secondary"/>
-    </LinearLayout>
+            android:backgroundTint="@color/secondary"
+            app:layout_constraintTop_toBottomOf="@id/layoutLocation"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="1.0"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

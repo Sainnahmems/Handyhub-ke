@@ -6,7 +6,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.handyhubke.databinding.ActivityServiceprovidersBinding
 
-class serviceproviders : AppCompatActivity() {
+class ServiceProvidersActivity : AppCompatActivity() {
     private lateinit var binding: ActivityServiceprovidersBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -11,7 +11,7 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:src="@mipmap/ic_launcher"
-        android:contentDescription="Handy Hub Logo"
+        android:contentDescription="@string/app_logo_desc"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/appName"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,22 +21,26 @@
         android:id="@+id/appName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Handy Hub"
+        android:layout_marginTop="136dp"
+        android:text="@string/app_name"
+        android:textColor="@android:color/white"
         android:textSize="32sp"
         android:textStyle="bold"
-        android:textColor="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@id/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/logo" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Your Everyday Helper"
+        android:layout_marginTop="148dp"
+        android:text="@string/splash_tagline"
         android:textColor="@android:color/white"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/appName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.532"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/appName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

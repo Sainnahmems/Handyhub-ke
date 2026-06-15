@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "371892929419",
+    "project_id": "handyhub-ke",
+    "storage_bucket": "handyhub-ke.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:371892929419:android:ca0db795dae1cac164a58e",
+        "android_client_info": {
+          "package_name": "com.example.handyhubke"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6m-ffQd88ZLnpOjEr4-_tMJutCpEDhbk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
