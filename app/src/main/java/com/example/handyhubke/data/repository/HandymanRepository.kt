@@ -28,7 +28,7 @@ class HandymanRepository {
                 }
                 Resource.Error(errorMsg)
             }
-        } catch (e: IOException) {
+        } catch (_: IOException) {
             Resource.Error("Network failure: Please check your internet connection.")
         } catch (e: Exception) {
             Resource.Error("An unknown error occurred: ${e.localizedMessage}")

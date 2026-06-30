@@ -25,6 +25,9 @@
     <string name="upload_photo">Upload Verification Profile Photo</string>
     <string name="complete_setup">Complete Setup Activation</string>
     <string name="logout_success">Successfully logged out</string>
+    <string name="mock_worker_message">Hello, I am on my route to your destination details coordinates.</string>
+    <string name="sender_me">me</string>
+    <string name="sender_worker">worker</string>
 
     <!-- Payment Screen -->
     <string name="checkout_summary">Checkout Summary</string>
